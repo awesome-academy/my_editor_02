@@ -1,0 +1,26 @@
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.framgia.my_editor_02.screen.collections.CollectionsViewModel"
+            />
+    </data>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/RecyclerViewCollections"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="android.support.v7.widget.GridLayoutManager"
+            android:collapseColumns="2"
+            app:spanCount="2"
+            />
+    </android.support.constraint.ConstraintLayout>
+</layout>
