@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="MyTabTextTheme" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/sp_18</item>
+    </style>
 </resources>

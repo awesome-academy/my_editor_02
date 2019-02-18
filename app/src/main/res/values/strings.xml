@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">My Editor</string>
+    <string name="search">Search</string>
+    <string name="photos">Photos</string>
+    <string name="collections">Collections</string>
+    <string name="photo_editor">Photo Editor</string>
 </resources>
