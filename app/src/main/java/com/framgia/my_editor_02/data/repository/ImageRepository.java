@@ -1,6 +1,7 @@
 package com.framgia.my_editor_02.data.repository;
 
 import com.framgia.my_editor_02.data.model.Collection;
+import com.framgia.my_editor_02.data.model.Photo;
 import com.framgia.my_editor_02.data.source.Local.ImageLocalDataSource;
 import com.framgia.my_editor_02.data.source.remote.ImageRemoteDataSource;
 import io.reactivex.Single;
@@ -27,5 +28,9 @@ public class ImageRepository {
 
     public Single<List<Collection>> getListCollections(int page) {
         return mRemoteDataSource.getListCollections(page);
+    }
+
+    public Single<List<Photo>> getListPhotos(int page) {
+        return mRemoteDataSource.getListPhotos(page);
     }
 }
