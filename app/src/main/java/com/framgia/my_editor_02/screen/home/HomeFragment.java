@@ -43,10 +43,9 @@ public class HomeFragment extends Fragment implements TabLayout.OnTabSelectedLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         mNavigator = new Navigator(this);
-        mHomeViewModel = new HomeViewModel();
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
-        mBinding.setViewModel(mHomeViewModel);
         setUp();
+        mBinding.setViewModel(mHomeViewModel);
         return mBinding.getRoot();
     }
 
@@ -54,6 +53,8 @@ public class HomeFragment extends Fragment implements TabLayout.OnTabSelectedLis
         ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(
                 mBinding.toolBar);
         mBinding.tabLayout.addOnTabSelectedListener(this);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
+        mHomeViewModel = new HomeViewModel(adapter);
     }
 
     @Override
@@ -84,6 +85,7 @@ public class HomeFragment extends Fragment implements TabLayout.OnTabSelectedLis
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
+        mBinding.viewPager.setCurrentItem(tab.getPosition());
     }
 
     @Override

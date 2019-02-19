@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
     <data>
@@ -34,17 +35,8 @@
                 android:layout_height="wrap_content"
                 app:tabSelectedTextColor="@color/colorBlueGrey700"
                 app:tabTextAppearance="@style/MyTabTextTheme"
+                bind:setUpViewPager="@{viewPager}"
                 >
-                <android.support.design.widget.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/photos"
-                    />
-                <android.support.design.widget.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/collections"
-                    />
             </android.support.design.widget.TabLayout>
         </android.support.design.widget.AppBarLayout>
         <android.support.constraint.ConstraintLayout
@@ -53,15 +45,16 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:context=".screen.home.HomeFragment"
             >
-            <FrameLayout
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewPager"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                >
-            </FrameLayout>
+                bind:pagerAdapter="@{viewModel.viewPagerAdapter}"
+                />
         </android.support.constraint.ConstraintLayout>
     </android.support.design.widget.CoordinatorLayout>
 </layout>
