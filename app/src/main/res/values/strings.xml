@@ -4,6 +4,7 @@
     <string name="photos">Photos</string>
     <string name="collections">Collections</string>
     <string name="photo_editor">Photo Editor</string>
-    <string name="dowload">dowload</string>
+    <string name="download">download</string>
     <string name="edit">edit</string>
+    <string name="imagePoster">ImagePoster</string>
 </resources>
