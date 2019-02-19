@@ -4,7 +4,10 @@ import com.framgia.my_editor_02.screen.BaseViewModel;
 
 public class HomeViewModel extends BaseViewModel {
 
-    HomeViewModel() {
+    private ViewPagerAdapter mViewPagerAdapter;
+
+    HomeViewModel(ViewPagerAdapter viewPagerAdapter) {
+        mViewPagerAdapter = viewPagerAdapter;
     }
 
     @Override
@@ -13,5 +16,9 @@ public class HomeViewModel extends BaseViewModel {
 
     @Override
     protected void onStop() {
+    }
+
+    public ViewPagerAdapter getViewPagerAdapter() {
+        return mViewPagerAdapter;
     }
 }
