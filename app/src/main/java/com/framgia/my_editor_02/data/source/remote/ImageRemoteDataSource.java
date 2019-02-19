@@ -1,6 +1,7 @@
 package com.framgia.my_editor_02.data.source.remote;
 
 import com.framgia.my_editor_02.data.model.Collection;
+import com.framgia.my_editor_02.data.model.Photo;
 import com.framgia.my_editor_02.data.source.ImageDataSource;
 import com.framgia.my_editor_02.data.source.remote.config.service.ImageApi;
 import com.framgia.my_editor_02.data.source.remote.config.service.ServiceClient;
@@ -25,5 +26,10 @@ public class ImageRemoteDataSource implements ImageDataSource.ImageRemoteDataSou
     @Override
     public Single<List<Collection>> getListCollections(int page) {
         return mImageApi.getListCollections(page);
+    }
+
+    @Override
+    public Single<List<Photo>> getListPhotos(int page) {
+        return mImageApi.getListPhotos(page);
     }
 }
