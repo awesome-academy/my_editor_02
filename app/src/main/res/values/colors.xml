@@ -8,5 +8,7 @@
     <color name="color_blue">#0E1AEE</color>
     <color name="color_white">#F0EDEE</color>
     <color name="color_pink">#f39</color>
+    <color name="back_154">#9A5D5D5D</color>
+    <color name="white">#EEEEEE</color>
     <color name="colorGrey50">#fafafa</color>
 </resources>

@@ -1,26 +1,34 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     >
+
     <data>
 
         <variable
-            name="viewmodel"
+            name="viewModel"
             type="com.framgia.my_editor_02.screen.collections.CollectionsViewModel"
             />
     </data>
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:context=".screen.collections.CollectionsFragment"
         >
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/RecyclerViewCollections"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             app:layoutManager="android.support.v7.widget.GridLayoutManager"
-            android:collapseColumns="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:spanCount="2"
+            bind:setAdapter="@{viewModel.collectionsAdapter}"
             />
     </android.support.constraint.ConstraintLayout>
 </layout>

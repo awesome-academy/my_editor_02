@@ -32,6 +32,9 @@ public class Collection implements Parcelable {
     @SerializedName("cover_photo")
     @Expose
     private CoverPhoto mConvertPhoto;
+    @SerializedName("user")
+    @Expose
+    private User mUser;
 
     protected Collection(Parcel in) {
         mId = in.readString();
@@ -42,6 +45,8 @@ public class Collection implements Parcelable {
         } else {
             mTotalPhotos = in.readInt();
         }
+        mConvertPhoto = in.readParcelable(CoverPhoto.class.getClassLoader());
+        mUser = in.readParcelable(User.class.getClassLoader());
     }
 
     @Override
@@ -60,6 +65,8 @@ public class Collection implements Parcelable {
             dest.writeByte((byte) 1);
             dest.writeInt(mTotalPhotos);
         }
+        dest.writeParcelable(mConvertPhoto, flags);
+        dest.writeParcelable(mUser, flags);
     }
 
     public String getId() {
@@ -100,5 +107,13 @@ public class Collection implements Parcelable {
 
     public void setConvertPhoto(CoverPhoto convertPhoto) {
         mConvertPhoto = convertPhoto;
+    }
+
+    public User getUser() {
+        return mUser;
+    }
+
+    public void setUser(User user) {
+        mUser = user;
     }
 }
