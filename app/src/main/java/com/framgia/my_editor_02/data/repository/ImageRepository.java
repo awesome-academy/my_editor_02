@@ -33,4 +33,12 @@ public class ImageRepository {
     public Single<List<Photo>> getListPhotos(int page) {
         return mRemoteDataSource.getListPhotos(page);
     }
+
+    public Single<List<Photo>> searchPhotos(String query, int page) {
+        return mRemoteDataSource.searchPhotos(query, page);
+    }
+
+    public Single<List<Collection>> searchCollections(String query, int page) {
+        return mRemoteDataSource.searchCollections(query, page);
+    }
 }
