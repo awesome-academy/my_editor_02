@@ -64,6 +64,11 @@ public class ImageRemoteDataSource implements ImageDataSource.ImageRemoteDataSou
                         });
     }
 
+    @Override
+    public Single<List<Collection>> getListCollectionsDetail(String id, int page) {
+        return mImageApi.getListCollectionsDetail(id, page);
+    }
+
     public Single<Photo> getPhoto(String id, int page) {
         return mImageApi.getPhotos(id, page);
     }

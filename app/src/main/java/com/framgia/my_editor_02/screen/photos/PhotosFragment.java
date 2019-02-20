@@ -17,6 +17,7 @@ import com.framgia.my_editor_02.data.source.Local.config.SharedPrefsApi;
 import com.framgia.my_editor_02.data.source.remote.ImageRemoteDataSource;
 import com.framgia.my_editor_02.databinding.FragmentPhotosBinding;
 import com.framgia.my_editor_02.screen.photoDetail.PhotoDetailFragment;
+import com.framgia.my_editor_02.utils.Constants;
 import com.framgia.my_editor_02.utils.EndlessScrollListener;
 import com.framgia.my_editor_02.utils.Navigator;
 import com.framgia.my_editor_02.utils.OnItemRecyclerViewClick;
@@ -27,7 +28,6 @@ import java.util.Objects;
  */
 public class PhotosFragment extends Fragment implements OnItemRecyclerViewClick<Photo> {
     public static final String TAG = PhotosFragment.class.getSimpleName();
-    private static final int DEFAULT_PAGE = 1;
     private PhotosViewModel mPhotosViewModel;
     private FragmentPhotosBinding mBinding;
     private Navigator mNavigator;
@@ -67,7 +67,7 @@ public class PhotosFragment extends Fragment implements OnItemRecyclerViewClick<
                         ImageLocalDataSource.getInstance(new SharedPrefsApi(Objects.requireNonNull(
                                 Objects.requireNonNull(getActivity()).getApplicationContext()))));
         mPhotosViewModel = new PhotosViewModel(repository, this);
-        mPhotosViewModel.getListPhotos(DEFAULT_PAGE);
+        mPhotosViewModel.getListPhotos(Constants.DEFAULT_PAGE);
         mBinding.recyclerViewListPhoto.addOnScrollListener(new EndlessScrollListener(
                 (GridLayoutManager) Objects.requireNonNull(
                         mBinding.recyclerViewListPhoto.getLayoutManager())) {
