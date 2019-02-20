@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     >
     <data>
         <variable
             name="viewModel"
-            type="com.framgia.my_editor_02.screen.photos.PhotosViewModel"
+            type="com.framgia.my_editor_02.screen.photos.ItemPhotoViewModel"
             />
     </data>
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".screen.photos.PhotosFragment"
+        android:layout_height="wrap_content"
+        android:onClick="@{viewModel::onItemClicked}"
         >
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerViewListPhoto"
+        <ImageView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layoutManager="android.support.v7.widget.GridLayoutManager"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:spanCount="2"
-            bind:setAdapter="@{viewModel.photoAdapter}"
+            bind:imgUrl="@{viewModel.imageUrl}"
             />
     </android.support.constraint.ConstraintLayout>
 </layout>
