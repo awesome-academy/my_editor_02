@@ -41,4 +41,16 @@ public class ImageRepository {
     public Single<List<Collection>> searchCollections(String query, int page) {
         return mRemoteDataSource.searchCollections(query, page);
     }
+
+    public List<String> getSearchHistory() {
+        return mLocalDataSource.getSearchHistory();
+    }
+
+    public List<String> saveSearchQuery(String searchQuery) {
+        return mLocalDataSource.saveSearchQuery(searchQuery);
+    }
+
+    public List<String> removeSearchQuery(int position) {
+        return mLocalDataSource.removeSearchQuery(position);
+    }
 }

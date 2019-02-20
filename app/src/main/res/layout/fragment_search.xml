@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
     <data>
@@ -8,12 +10,76 @@
             type="com.framgia.my_editor_02.screen.search.SearchViewModel"
             />
     </data>
-    <android.support.constraint.ConstraintLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
+        android:background="@color/colorGrey50"
         android:clickable="true"
         android:focusable="true"
-        tools:context=".screen.search.SearchFragment">
-    </android.support.constraint.ConstraintLayout>
+        tools:context=".screen.search.SearchFragment"
+        >
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            >
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolBar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                />
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabRippleColor="@null"
+                app:tabSelectedTextColor="@color/colorBlueGrey700"
+                app:tabTextAppearance="@style/MyTabTextTheme"
+                >
+                <android.support.design.widget.TabItem
+                    android:id="@+id/tabItemPhotos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/photos"
+                    />
+                <android.support.design.widget.TabItem
+                    android:id="@+id/tabItemCollections"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/collections"
+                    />
+            </android.support.design.widget.TabLayout>
+        </android.support.design.widget.AppBarLayout>
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context=".screen.home.HomeFragment"
+            >
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerViewSearchHistory"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewRecentlySearch"
+                bind:setAdapter="@{viewModel.historyAdapter}"
+                />
+            <TextView
+                android:id="@+id/textViewRecentlySearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_8"
+                android:text="@string/recently_search"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.design.widget.CoordinatorLayout>
 </layout>
