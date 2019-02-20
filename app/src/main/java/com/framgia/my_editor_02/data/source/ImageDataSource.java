@@ -23,7 +23,7 @@ public interface ImageDataSource {
 
         Single<List<Collection>> searchCollections(String query, int page);
 
-        Single<List<Collection>> getListCollectionsDetail(String id, int page);
+        Single<List<Photo>> getListCollectionsDetail(String id, int page);
 
         Single<Photo> getPhoto(String id,int page);
 

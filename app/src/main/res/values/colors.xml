@@ -11,4 +11,6 @@
     <color name="back_154">#9A5D5D5D</color>
     <color name="white">#EEEEEE</color>
     <color name="colorGrey50">#fafafa</color>
+    <color name="color_black_64">#A3070606</color>
+    <color name="color_back">#000</color>
 </resources>
