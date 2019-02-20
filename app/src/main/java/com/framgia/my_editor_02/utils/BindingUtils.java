@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 
 public class BindingUtils {
+    private static final float THUMBNAIL_SIZE_MULTIPLIER = 0.1f;
+
     @BindingAdapter("pagerAdapter")
     public static void setPagerAdapter(ViewPager viewPager, FragmentPagerAdapter adapter) {
         viewPager.setAdapter(adapter);
@@ -26,6 +28,9 @@ public class BindingUtils {
 
     @BindingAdapter("imgUrl")
     public static void setImageUrl(ImageView imageView, String url) {
-        Glide.with(imageView.getContext()).load(url).into(imageView);
+        Glide.with(imageView.getContext())
+                .load(url)
+                .thumbnail(THUMBNAIL_SIZE_MULTIPLIER)
+                .into(imageView);
     }
 }

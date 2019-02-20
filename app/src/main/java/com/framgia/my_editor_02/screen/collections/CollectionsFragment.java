@@ -72,6 +72,11 @@ public class CollectionsFragment extends Fragment implements OnItemRecyclerViewC
                 (GridLayoutManager) Objects.requireNonNull(
                         binding.RecyclerViewCollections.getLayoutManager())) {
             @Override
+            public boolean setResetState() {
+                return false;
+            }
+
+            @Override
             public void onLoadMore(int page, RecyclerView view) {
                 mCollectionsViewModel.getCollections(page);
             }

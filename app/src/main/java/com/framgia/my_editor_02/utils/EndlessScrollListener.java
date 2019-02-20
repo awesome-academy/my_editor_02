@@ -54,7 +54,18 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
             onLoadMore(mCurrentPage, view);
             mIsLoading = true;
         }
+        if (setResetState()){
+            resetState();
+        }
     }
+
+    public void resetState() {
+        mCurrentPage = DEFAULT_CURRENT_PAGE;
+        mPreviousTotalItemCount = DEFAULT_VALUE;
+        mIsLoading = true;
+    }
+
+    public abstract boolean setResetState();
 
     public abstract void onLoadMore(int page, RecyclerView view);
 }

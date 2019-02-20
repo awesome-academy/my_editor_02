@@ -17,6 +17,8 @@ import com.framgia.my_editor_02.databinding.FragmentHomeBinding;
 import com.framgia.my_editor_02.screen.collections.CollectionsFragment;
 import com.framgia.my_editor_02.screen.photos.PhotosFragment;
 import com.framgia.my_editor_02.screen.search.SearchFragment;
+import com.framgia.my_editor_02.utils.ActionType;
+import com.framgia.my_editor_02.utils.Constants;
 import com.framgia.my_editor_02.utils.Navigator;
 import java.util.Objects;
 
@@ -25,8 +27,6 @@ import java.util.Objects;
  */
 public class HomeFragment extends Fragment implements TabLayout.OnTabSelectedListener {
     public static final String TAG = HomeFragment.class.getSimpleName();
-    private static final String COLLECTIONS = "Collections";
-    private static final String PHOTOS = "Photos";
     private HomeViewModel mHomeViewModel;
     private Navigator mNavigator;
     private FragmentHomeBinding mBinding;
@@ -59,8 +59,9 @@ public class HomeFragment extends Fragment implements TabLayout.OnTabSelectedLis
                 mBinding.toolBar);
         mBinding.tabLayout.addOnTabSelectedListener(this);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
-        adapter.addFragment(PhotosFragment.newInstance(), PHOTOS);
-        adapter.addFragment(CollectionsFragment.newInstance(), COLLECTIONS);
+        adapter.addFragment(PhotosFragment.newInstance(ActionType.ACTION_GET_LIST),
+                Constants.PHOTOS);
+        adapter.addFragment(CollectionsFragment.newInstance(), Constants.COLLECTIONS);
         mHomeViewModel = new HomeViewModel(adapter);
     }
 

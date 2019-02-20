@@ -48,6 +48,27 @@ public class PhotosViewModel extends BaseViewModel {
                 }));
     }
 
+    void searchPhotos(String query, int page) {
+        mCompositeDisposable.add(mImageRepository.searchPhotos(query, page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<Photo>>() {
+                    @Override
+                    public void accept(List<Photo> photos) throws Exception {
+                        mPhotoAdapter.setData(photos);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        throwable.printStackTrace();
+                    }
+                }));
+    }
+
+    void resetRecyclerViewData() {
+        mPhotoAdapter.resetData();
+    }
+
     public PhotoAdapter getPhotoAdapter() {
         return mPhotoAdapter;
     }
