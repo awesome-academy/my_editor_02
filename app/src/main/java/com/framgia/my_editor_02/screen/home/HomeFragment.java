@@ -16,6 +16,7 @@ import com.framgia.my_editor_02.R;
 import com.framgia.my_editor_02.databinding.FragmentHomeBinding;
 import com.framgia.my_editor_02.screen.collections.CollectionsFragment;
 import com.framgia.my_editor_02.screen.photos.PhotosFragment;
+import com.framgia.my_editor_02.screen.search.SearchFragment;
 import com.framgia.my_editor_02.utils.Navigator;
 import java.util.Objects;
 
@@ -84,6 +85,8 @@ public class HomeFragment extends Fragment implements TabLayout.OnTabSelectedLis
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.actionSearch:
+                mNavigator.goNextChildFragment(getFragmentManager(), R.id.layoutContainer,
+                        SearchFragment.newInstance(), true, TAG);
                 break;
         }
         return super.onOptionsItemSelected(item);
