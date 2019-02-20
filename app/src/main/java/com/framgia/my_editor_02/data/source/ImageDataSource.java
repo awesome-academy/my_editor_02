@@ -22,5 +22,8 @@ public interface ImageDataSource {
         Single<List<Photo>> searchPhotos(String query, int page);
 
         Single<List<Collection>> searchCollections(String query, int page);
+
+        Single<Photo> getPhoto(String id,int page);
+
     }
 }

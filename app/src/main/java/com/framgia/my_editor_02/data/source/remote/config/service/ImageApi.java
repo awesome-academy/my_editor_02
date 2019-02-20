@@ -8,6 +8,7 @@ import com.framgia.my_editor_02.data.source.remote.config.response.SearchPhotoRe
 import io.reactivex.Single;
 import java.util.List;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ImageApi {
@@ -23,4 +24,7 @@ public interface ImageApi {
     @GET("search/collections?client_id=" + BuildConfig.API_KEY)
     Single<SearchCollectionResponse> searchCollections(@Query("query") String query,
             @Query("page") int page);
+
+    @GET("photos/{id}?client_id=" + BuildConfig.API_KEY)
+    Single<Photo> getPhotos(@Path("id") String id, @Query("page") int page);
 }
