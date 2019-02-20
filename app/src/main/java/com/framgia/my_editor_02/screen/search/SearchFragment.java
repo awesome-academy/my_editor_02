@@ -10,8 +10,10 @@ import android.view.ViewGroup;
 import com.framgia.my_editor_02.R;
 import com.framgia.my_editor_02.data.repository.ImageRepository;
 import com.framgia.my_editor_02.data.source.Local.ImageLocalDataSource;
+import com.framgia.my_editor_02.data.source.Local.config.SharedPrefsApi;
 import com.framgia.my_editor_02.data.source.remote.ImageRemoteDataSource;
 import com.framgia.my_editor_02.databinding.FragmentSearchBinding;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,7 +54,8 @@ public class SearchFragment extends Fragment {
     private void setUp() {
         ImageRepository repository =
                 ImageRepository.getInstance(ImageRemoteDataSource.getInstance(),
-                        ImageLocalDataSource.getInstance());
+                        ImageLocalDataSource.getInstance(new SharedPrefsApi(
+                                Objects.requireNonNull(getActivity()).getApplicationContext())));
         mSearchViewModel = new SearchViewModel(repository);
     }
 }
