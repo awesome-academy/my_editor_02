@@ -7,6 +7,9 @@ import java.util.List;
 
 public interface ImageDataSource {
     interface ImageLocalDataSource {
+        List<String> saveSearchQuery(String searchQuery);
+
+        List<String> getSearchHistory();
     }
 
     interface ImageRemoteDataSource {

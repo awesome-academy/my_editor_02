@@ -13,6 +13,7 @@ import com.framgia.my_editor_02.R;
 import com.framgia.my_editor_02.data.model.Photo;
 import com.framgia.my_editor_02.data.repository.ImageRepository;
 import com.framgia.my_editor_02.data.source.Local.ImageLocalDataSource;
+import com.framgia.my_editor_02.data.source.Local.config.SharedPrefsApi;
 import com.framgia.my_editor_02.data.source.remote.ImageRemoteDataSource;
 import com.framgia.my_editor_02.databinding.FragmentPhotosBinding;
 import com.framgia.my_editor_02.screen.photoDetail.PhotoDetailFragment;
@@ -63,7 +64,8 @@ public class PhotosFragment extends Fragment implements OnItemRecyclerViewClick<
         mNavigator = new Navigator(this);
         ImageRepository repository =
                 ImageRepository.getInstance(ImageRemoteDataSource.getInstance(),
-                        ImageLocalDataSource.getInstance());
+                        ImageLocalDataSource.getInstance(new SharedPrefsApi(Objects.requireNonNull(
+                                Objects.requireNonNull(getActivity()).getApplicationContext()))));
         mPhotosViewModel = new PhotosViewModel(repository, this);
         mPhotosViewModel.getListPhotos(DEFAULT_PAGE);
         mBinding.recyclerViewListPhoto.addOnScrollListener(new EndlessScrollListener(
