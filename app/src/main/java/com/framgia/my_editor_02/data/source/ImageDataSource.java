@@ -10,6 +10,8 @@ public interface ImageDataSource {
         List<String> saveSearchQuery(String searchQuery);
 
         List<String> getSearchHistory();
+
+        List<String> removeSearchQuery(int position);
     }
 
     interface ImageRemoteDataSource {
