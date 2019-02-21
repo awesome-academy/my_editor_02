@@ -79,8 +79,8 @@ public class PhotosFragment extends Fragment implements OnItemRecyclerViewClick<
     }
 
     @Override
-    public void onItemClick(Photo item) {
+    public void onItemClick(Photo photo) {
         mNavigator.goNextChildFragment(getFragmentManager(), R.id.layoutContainer,
-                PhotoDetailFragment.getInstance(), true, TAG);
+                PhotoDetailFragment.getInstance(photo), true, TAG);
     }
 }

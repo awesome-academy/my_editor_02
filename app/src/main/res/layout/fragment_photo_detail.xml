@@ -2,6 +2,7 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools"
     >
     <data>
         <variable
@@ -21,13 +22,15 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_300"
             app:layout_constraintTop_toTopOf="parent"
+            bind:imgUrl="@{viewModel.getImageUrlDetail()}"
             />
         <TextView
-            android:id="@+id/textViewNamePhoto"
+            android:id="@+id/textViewUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_5"
             android:layout_marginTop="@dimen/dp_5"
+            android:text="@{viewModel.mPhotoObservableField.getUser().getName()}"
             android:textColor="@color/color_black"
             android:textSize="@dimen/sp_18"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -35,15 +38,16 @@
             />
 
         <TextView
-            android:id="@+id/textViewUserName"
+            android:id="@+id/textViewDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_5"
             android:layout_marginTop="@dimen/dp_5"
+            android:text="@{viewModel.mPhotoObservableField.getDescription()}"
             android:textColor="@color/color_black"
             android:textSize="@dimen/sp_14"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewNamePhoto"
+            app:layout_constraintTop_toBottomOf="@+id/textViewUserName"
             />
         <ImageView
             android:id="@+id/imageViewLocation"
@@ -53,7 +57,7 @@
             android:layout_marginTop="@dimen/dp_5"
             android:src="@drawable/location"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewUserName"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDescription"
             />
         <TextView
             android:id="@+id/textViewLocation"
@@ -61,6 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_5"
             android:layout_marginTop="@dimen/dp_5"
+            android:text="@{viewModel.getLocation()}"
             android:textColor="@color/color_black"
             app:layout_constraintLeft_toRightOf="@+id/imageViewLocation"
             app:layout_constraintTop_toTopOf="@+id/imageViewLocation"
@@ -69,7 +74,7 @@
             android:id="@+id/imageViewViews"
             android:layout_width="@dimen/dp_30"
             android:layout_height="@dimen/dp_30"
-            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_marginStart="@dimen/dp_5"
             android:layout_marginTop="@dimen/dp_5"
             android:src="@drawable/view"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -81,9 +86,20 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_5"
             android:layout_marginTop="@dimen/dp_5"
+            android:text="@{String.valueOf(viewModel.mPhotoObservableField.getViews())}"
             android:textColor="@color/color_black"
             app:layout_constraintLeft_toRightOf="@id/imageViewViews"
             app:layout_constraintTop_toTopOf="@+id/imageViewViews"
+            />
+        <TextView
+            android:id="@+id/textViewViewsHard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_5"
+            android:text="@string/views"
+            android:textColor="@color/color_black"
+            app:layout_constraintLeft_toRightOf="@id/textViewViews"
+            app:layout_constraintTop_toTopOf="@+id/textViewViews"
             />
         <ImageView
             android:id="@+id/imageViewLikes"
@@ -101,9 +117,20 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_5"
             android:layout_marginTop="@dimen/dp_5"
+            android:text="@{String.valueOf(viewModel.mPhotoObservableField.getLikes())}"
             android:textColor="@color/color_black"
             app:layout_constraintLeft_toRightOf="@+id/imageViewLikes"
             app:layout_constraintTop_toTopOf="@+id/imageViewLikes"
+            />
+        <TextView
+            android:id="@+id/textViewLikesHard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_5"
+            android:text="@string/likes"
+            android:textColor="@color/color_black"
+            app:layout_constraintLeft_toRightOf="@id/textViewLikes"
+            app:layout_constraintTop_toTopOf="@+id/textViewLikes"
             />
         <ImageView
             android:id="@+id/imageViewDowloads"
@@ -121,9 +148,20 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_5"
             android:layout_marginTop="@dimen/dp_5"
+            android:text="@{String.valueOf(viewModel.mPhotoObservableField.getDownloads())}"
             android:textColor="@color/color_black"
             app:layout_constraintLeft_toRightOf="@id/imageViewDowloads"
             app:layout_constraintTop_toTopOf="@+id/imageViewDowloads"
+            />
+        <TextView
+            android:id="@+id/textViewDownLoadsHard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_5"
+            android:text="@string/downloads"
+            android:textColor="@color/color_black"
+            app:layout_constraintLeft_toRightOf="@id/textViewDowloads"
+            app:layout_constraintTop_toTopOf="@+id/textViewDowloads"
             />
         <Button
             android:id="@+id/buttonEdit"
