@@ -1,9 +1,13 @@
 package com.framgia.my_editor_02.screen.photoDetail;
 
 import android.databinding.ObservableField;
+import android.view.View;
+import com.framgia.my_editor_02.R;
 import com.framgia.my_editor_02.data.model.Photo;
 import com.framgia.my_editor_02.data.repository.ImageRepository;
 import com.framgia.my_editor_02.screen.BaseViewModel;
+import com.framgia.my_editor_02.screen.edit.EditPhotoFragment;
+import com.framgia.my_editor_02.utils.Navigator;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
