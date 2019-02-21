@@ -10,20 +10,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.framgia.my_editor_02.R;
+import com.framgia.my_editor_02.data.model.Collection;
 import com.framgia.my_editor_02.data.repository.ImageRepository;
 import com.framgia.my_editor_02.data.source.Local.ImageLocalDataSource;
 import com.framgia.my_editor_02.data.source.Local.config.SharedPrefsApi;
 import com.framgia.my_editor_02.data.source.remote.ImageRemoteDataSource;
 import com.framgia.my_editor_02.databinding.FragmentCollectionsBinding;
+import com.framgia.my_editor_02.screen.collectionsDetail.CollectionsDetailFragment;
+import com.framgia.my_editor_02.utils.Constants;
 import com.framgia.my_editor_02.utils.EndlessScrollListener;
+import com.framgia.my_editor_02.utils.Navigator;
+import com.framgia.my_editor_02.utils.OnItemRecyclerViewClick;
 import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CollectionsFragment extends Fragment {
-    private static final int DEFAULT_PAGE = 1;
+public class CollectionsFragment extends Fragment implements OnItemRecyclerViewClick<Collection> {
+    public static final String TAG = CollectionsDetailFragment.class.getSimpleName();
     private CollectionsViewModel mCollectionsViewModel;
+    private Navigator mNavigator;
 
     public static CollectionsFragment newInstance() {
         CollectionsFragment collectionsFragment = new CollectionsFragment();
@@ -53,8 +59,9 @@ public class CollectionsFragment extends Fragment {
                 ImageRepository.getInstance(ImageRemoteDataSource.getInstance(),
                         ImageLocalDataSource.getInstance(new SharedPrefsApi(
                                 Objects.requireNonNull(getActivity()).getApplicationContext())));
-        mCollectionsViewModel = new CollectionsViewModel(repository);
-        mCollectionsViewModel.getCollections(DEFAULT_PAGE);
+        mNavigator = new Navigator(this);
+        mCollectionsViewModel = new CollectionsViewModel(repository, this);
+        mCollectionsViewModel.getCollections(Constants.DEFAULT_PAGE);
         binding.setViewModel(mCollectionsViewModel);
         setLoadMore(binding);
         return binding.getRoot();
@@ -69,5 +76,11 @@ public class CollectionsFragment extends Fragment {
                 mCollectionsViewModel.getCollections(page);
             }
         });
+    }
+
+    @Override
+    public void onItemClick(Collection item) {
+        mNavigator.goNextChildFragment(getFragmentManager(), R.id.layoutContainer,
+                CollectionsDetailFragment.newInstance(item), true, TAG);
     }
 }
