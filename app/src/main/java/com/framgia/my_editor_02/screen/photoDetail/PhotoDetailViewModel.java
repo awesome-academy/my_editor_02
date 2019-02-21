@@ -50,18 +50,4 @@ public class PhotoDetailViewModel extends BaseViewModel {
     public void setPhoto(Photo photo) {
         mPhotoObservableField.set(photo);
     }
-
-    public String getImageUrlDetail() {
-        if (mPhotoObservableField.get() != null) {
-            return Objects.requireNonNull(mPhotoObservableField.get()).getUrlImage().getSmall();
-        }
-        return "";
-    }
-
-    public String getLocation() {
-        if (mPhotoObservableField.get() != null) {
-            return Objects.requireNonNull(mPhotoObservableField.get()).getLocation().getTitle();
-        }
-        return "";
-    }
 }
