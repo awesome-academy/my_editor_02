@@ -8,4 +8,7 @@
     <string name="edit">edit</string>
     <string name="imagePoster">ImagePoster</string>
     <string name="recently_search">Recently Search</string>
+    <string name="views">Views</string>
+    <string name="likes">Likes</string>
+    <string name="downloads">Downloads</string>
 </resources>
