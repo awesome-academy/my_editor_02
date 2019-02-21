@@ -8,7 +8,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import java.util.Objects;
 
 public class PhotoDetailViewModel extends BaseViewModel {
     public ObservableField<Photo> mPhotoObservableField = new ObservableField<>();
@@ -49,19 +48,5 @@ public class PhotoDetailViewModel extends BaseViewModel {
 
     public void setPhoto(Photo photo) {
         mPhotoObservableField.set(photo);
-    }
-
-    public String getImageUrlDetail() {
-        if (mPhotoObservableField.get() != null) {
-            return Objects.requireNonNull(mPhotoObservableField.get()).getUrlImage().getSmall();
-        }
-        return "";
-    }
-
-    public String getLocation() {
-        if (mPhotoObservableField.get() != null) {
-            return Objects.requireNonNull(mPhotoObservableField.get()).getLocation().getTitle();
-        }
-        return "";
     }
 }
