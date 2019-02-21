@@ -52,6 +52,14 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ItemHolder> 
         }
     }
 
+    void resetData() {
+        if (mPhotos != null) {
+            int size = mPhotos.size();
+            mPhotos.clear();
+            notifyItemRangeRemoved(mPhotos.size(), size);
+        }
+    }
+
     static class ItemHolder extends RecyclerView.ViewHolder {
         private ItemTabPhotosBinding mBinding;
         private ItemPhotoViewModel mItemPhotoViewModel;
@@ -64,6 +72,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ItemHolder> 
         }
 
         void bindData(Photo photo) {
+            mBinding.invalidateAll();
             mItemPhotoViewModel.setPhoto(photo);
             mBinding.executePendingBindings();
         }

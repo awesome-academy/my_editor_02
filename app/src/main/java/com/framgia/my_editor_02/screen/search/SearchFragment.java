@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -21,7 +22,12 @@ import com.framgia.my_editor_02.data.source.Local.ImageLocalDataSource;
 import com.framgia.my_editor_02.data.source.Local.config.SharedPrefsApi;
 import com.framgia.my_editor_02.data.source.remote.ImageRemoteDataSource;
 import com.framgia.my_editor_02.databinding.FragmentSearchBinding;
+import com.framgia.my_editor_02.screen.collections.CollectionsFragment;
 import com.framgia.my_editor_02.screen.home.HomeFragment;
+import com.framgia.my_editor_02.screen.home.ViewPagerAdapter;
+import com.framgia.my_editor_02.screen.photos.PhotosFragment;
+import com.framgia.my_editor_02.utils.ActionType;
+import com.framgia.my_editor_02.utils.Constants;
 import com.framgia.my_editor_02.utils.Navigator;
 import com.framgia.my_editor_02.utils.OnItemRecyclerViewClick;
 import java.util.Objects;
@@ -29,12 +35,14 @@ import java.util.Objects;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SearchFragment extends Fragment implements SearchView.OnQueryTextListener,
-        OnItemRecyclerViewClick.OnSearchHistoryItemClick {
-
+public class SearchFragment extends Fragment
+        implements SearchView.OnQueryTextListener, OnItemRecyclerViewClick.OnSearchHistoryItemClick,
+        TabLayout.OnTabSelectedListener {
+    public static final String TAG = SearchFragment.class.getSimpleName();
     private FragmentSearchBinding mBinding;
     private SearchViewModel mSearchViewModel;
     private Navigator mNavigator;
+    private PhotosFragment mPhotosFragment;
 
     public static SearchFragment newInstance() {
         SearchFragment searchFragment = new SearchFragment();
@@ -109,13 +117,18 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
                 ImageRepository.getInstance(ImageRemoteDataSource.getInstance(),
                         ImageLocalDataSource.getInstance(new SharedPrefsApi(
                                 Objects.requireNonNull(getActivity()).getApplicationContext())));
-        mSearchViewModel = new SearchViewModel(repository, this);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
+        mPhotosFragment = PhotosFragment.newInstance(ActionType.ACTION_SEARCH);
+        adapter.addFragment(mPhotosFragment, Constants.PHOTOS);
+        adapter.addFragment(CollectionsFragment.newInstance(), Constants.COLLECTIONS);
+        mSearchViewModel = new SearchViewModel(repository, adapter, this);
         mSearchViewModel.getSearchHistory();
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
         mSearchViewModel.saveSearchQuery(query);
+        searchData(query);
         return false;
     }
 
@@ -126,10 +139,30 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
 
     @Override
     public void onHistoryItemClicked(String searchQuery) {
+        searchData(searchQuery);
     }
 
     @Override
     public void onRemoveHistoryItemClick(int position) {
         mSearchViewModel.removeSearchQuery(position);
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        mBinding.viewPager.setCurrentItem(tab.getPosition());
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+    }
+
+    private void searchData(String query) {
+        mBinding.groupSearchHistory.setVisibility(View.GONE);
+        mBinding.viewPager.setVisibility(View.VISIBLE);
+        mPhotosFragment.searchPhotos(query);
     }
 }

@@ -11,6 +11,7 @@
             />
     </data>
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/layoutSearchScreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorGrey50"
@@ -38,20 +39,8 @@
                 app:tabRippleColor="@null"
                 app:tabSelectedTextColor="@color/colorBlueGrey700"
                 app:tabTextAppearance="@style/MyTabTextTheme"
-                >
-                <android.support.design.widget.TabItem
-                    android:id="@+id/tabItemPhotos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/photos"
-                    />
-                <android.support.design.widget.TabItem
-                    android:id="@+id/tabItemCollections"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/collections"
-                    />
-            </android.support.design.widget.TabLayout>
+                bind:setUpViewPager="@{viewPager}"
+                />
         </android.support.design.widget.AppBarLayout>
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -79,6 +68,23 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                />
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                bind:pagerAdapter="@{viewModel.viewPagerAdapter}"
+                />
+            <android.support.constraint.Group
+                android:id="@+id/groupSearchHistory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="textViewRecentlySearch,recyclerViewSearchHistory"
                 />
         </android.support.constraint.ConstraintLayout>
     </android.support.design.widget.CoordinatorLayout>

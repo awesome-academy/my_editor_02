@@ -1,9 +1,9 @@
 package com.framgia.my_editor_02.screen.search;
 
 import com.framgia.my_editor_02.data.model.Collection;
-import com.framgia.my_editor_02.data.model.Photo;
 import com.framgia.my_editor_02.data.repository.ImageRepository;
 import com.framgia.my_editor_02.screen.BaseViewModel;
+import com.framgia.my_editor_02.screen.home.ViewPagerAdapter;
 import com.framgia.my_editor_02.utils.OnItemRecyclerViewClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -15,10 +15,12 @@ public class SearchViewModel extends BaseViewModel {
     private ImageRepository mImageRepository;
     private CompositeDisposable mCompositeDisposable;
     private HistoryAdapter mHistoryAdapter;
+    private ViewPagerAdapter mViewPagerAdapter;
 
-    public SearchViewModel(ImageRepository imageRepository,
+    public SearchViewModel(ImageRepository imageRepository, ViewPagerAdapter viewPagerAdapter,
             OnItemRecyclerViewClick.OnSearchHistoryItemClick listener) {
         mImageRepository = imageRepository;
+        mViewPagerAdapter = viewPagerAdapter;
         mCompositeDisposable = new CompositeDisposable();
         mHistoryAdapter = new HistoryAdapter(listener);
     }
@@ -30,22 +32,6 @@ public class SearchViewModel extends BaseViewModel {
     @Override
     protected void onStop() {
         mCompositeDisposable.clear();
-    }
-
-    public void searchPhotos(String query, int page) {
-        mCompositeDisposable.add(mImageRepository.searchPhotos(query, page)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<Photo>>() {
-                    @Override
-                    public void accept(List<Photo> photos) throws Exception {
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        throwable.printStackTrace();
-                    }
-                }));
     }
 
     public void searchCollections(String query, int page) {
@@ -85,5 +71,9 @@ public class SearchViewModel extends BaseViewModel {
 
     public HistoryAdapter getHistoryAdapter() {
         return mHistoryAdapter;
+    }
+
+    public ViewPagerAdapter getViewPagerAdapter() {
+        return mViewPagerAdapter;
     }
 }
