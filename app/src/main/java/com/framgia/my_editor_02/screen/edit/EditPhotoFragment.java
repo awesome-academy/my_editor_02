@@ -10,6 +10,8 @@ import com.framgia.my_editor_02.R;
 import com.framgia.my_editor_02.data.model.Photo;
 import com.framgia.my_editor_02.databinding.FragmentEditPhotoBinding;
 import com.framgia.my_editor_02.utils.Constants;
+import com.framgia.my_editor_02.utils.zoom.HandleZoomEvent;
+import com.framgia.my_editor_02.utils.zoom.ZoomAnimation;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +35,7 @@ public class EditPhotoFragment extends Fragment {
                 DataBindingUtil.inflate(inflater, R.layout.fragment_edit_photo, container, false);
         setUp();
         binding.setViewModel(mEditPhotoViewModel);
+        new HandleZoomEvent(binding.imageViewPhoto);
         return binding.getRoot();
     }
 
