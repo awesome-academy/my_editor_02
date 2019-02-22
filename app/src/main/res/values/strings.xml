@@ -17,4 +17,6 @@
     <string name="draw">Draw</string>
     <string name="crop">Crop</string>
     <string name="filter">Filter</string>
+    <string name="down_load">DownLoading</string>
+    <string name="link_error">Link Error</string>
 </resources>

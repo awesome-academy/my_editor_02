@@ -1,14 +1,17 @@
 package com.framgia.my_editor_02.screen.photoDetail;
 
+import android.app.DownloadManager;
+import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import com.framgia.my_editor_02.R;
 import com.framgia.my_editor_02.data.model.Photo;
 import com.framgia.my_editor_02.data.repository.ImageRepository;
@@ -23,6 +26,7 @@ import java.util.Objects;
 
 public class PhotoDetailFragment extends Fragment implements View.OnClickListener {
     public static final String TAG = PhotoDetailFragment.class.getSimpleName();
+    private static final String EXTRA_PHOTO = "EXTRA_PHOTO";
     private static final int DEFAULT_PAGE = 1;
     private Photo mPhoto;
     private PhotoDetailViewModel mPhotoDetailViewModel;
@@ -46,6 +50,7 @@ public class PhotoDetailFragment extends Fragment implements View.OnClickListene
         initData();
         setUp();
         mBinding.setViewModel(mPhotoDetailViewModel);
+        mBinding.buttonDownload.setOnClickListener(this);
         return mBinding.getRoot();
     }
 
@@ -87,6 +92,28 @@ public class PhotoDetailFragment extends Fragment implements View.OnClickListene
             case R.id.buttonEdit:
                 mNavigator.goNextChildFragment(getFragmentManager(), R.id.layoutContainer,
                         EditPhotoFragment.newInstance(mPhoto), true, PhotoDetailFragment.TAG);
+                break;
+            case R.id.buttonDownload:
+                downLoad();
+                break;
+        }
+    }
+
+    public void downLoad() {
+        DownloadManager downloadManager = (DownloadManager) getActivity().getApplicationContext()
+                .getSystemService(Context.DOWNLOAD_SERVICE);
+        String linkDownLoad = mPhoto.getUrlImage().getSmall();
+        if (linkDownLoad != null) {
+            Uri uri = Uri.parse(linkDownLoad);
+            DownloadManager.Request request = new DownloadManager.Request(uri);
+            request.setNotificationVisibility(
+                    DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+            request.setTitle(mPhoto.getUser().getName());
+            request.setDescription(R.string.down_load + "");
+            assert downloadManager != null;
+            downloadManager.enqueue(request);
+        } else {
+            Toast.makeText(getActivity(), R.string.link_error, Toast.LENGTH_SHORT).show();
         }
     }
 }
