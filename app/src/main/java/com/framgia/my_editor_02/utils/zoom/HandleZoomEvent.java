@@ -10,7 +10,8 @@ import android.widget.ImageView;
 
 public class HandleZoomEvent implements View.OnTouchListener, OnAnimationChangeListener,
         GestureDetector.OnDoubleTapListener {
-    private static final float MIN_SCALE_VALUE = 1.0f;
+    private static final float MIN_SCALE_VALUE = 0.5f;
+    private static final float DEFAULT_SCALE_VALUE = 1.0f;
     private static final float MAX_SCALE_VALUE = 3.0f;
     private static final float DEFAULT_SCALE_FACTOR = 1.0f;
     private static final int DEFAULT_ZERO_VALUE = 0;
@@ -20,6 +21,7 @@ public class HandleZoomEvent implements View.OnTouchListener, OnAnimationChangeL
     private RectF mDisplayRect = new RectF();
     private ImageView mImageView;
     private GestureDetector mGestureDetector;
+    private DragScaleDetector mScaleDetector;
 
     public HandleZoomEvent(ImageView imageView) {
         mImageView = imageView;
@@ -27,6 +29,7 @@ public class HandleZoomEvent implements View.OnTouchListener, OnAnimationChangeL
         mGestureDetector = new GestureDetector(imageView.getContext(),
                 new GestureDetector.SimpleOnGestureListener());
         mGestureDetector.setOnDoubleTapListener(this);
+        mScaleDetector = new DragScaleDetector(mImageView.getContext(), this);
     }
 
     @Override
@@ -43,7 +46,7 @@ public class HandleZoomEvent implements View.OnTouchListener, OnAnimationChangeL
         if (scale < MAX_SCALE_VALUE) {
             setScale(MAX_SCALE_VALUE, x, y);
         } else {
-            setScale(MIN_SCALE_VALUE, x, y);
+            setScale(DEFAULT_SCALE_VALUE, x, y);
         }
         return false;
     }
@@ -55,7 +58,8 @@ public class HandleZoomEvent implements View.OnTouchListener, OnAnimationChangeL
 
     @Override
     public void onScale(float scaleFactor, float focusX, float focusY) {
-        if (getScale() < MAX_SCALE_VALUE || scaleFactor < DEFAULT_SCALE_FACTOR) {
+        if ((getScale() < MAX_SCALE_VALUE && scaleFactor > DEFAULT_SCALE_FACTOR) || (getScale()
+                > MIN_SCALE_VALUE && scaleFactor < DEFAULT_SCALE_FACTOR)) {
             mMatrix.postScale(scaleFactor, scaleFactor, focusX, focusY);
             checkAndDisplayMatrix();
         }
@@ -68,9 +72,27 @@ public class HandleZoomEvent implements View.OnTouchListener, OnAnimationChangeL
     }
 
     @Override
+    public void onDrag(float dx, float dy) {
+        mMatrix.postTranslate(dx, dy);
+        checkAndDisplayMatrix();
+    }
+
+    @Override
     public boolean onTouch(View v, MotionEvent ev) {
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_UP:
+                if (getScale() < DEFAULT_SCALE_VALUE) {
+                    RectF rect = getDisplayRect();
+                    if (rect != null) {
+                        v.post(new ZoomAnimation(mImageView, getScale(), DEFAULT_SCALE_VALUE,
+                                rect.centerX(), rect.centerY(), this));
+                    }
+                }
+                break;
+        }
         mImageView.setScaleType(ImageView.ScaleType.MATRIX);
         mGestureDetector.onTouchEvent(ev);
+        mScaleDetector.onTouchEvent(ev);
         return true;
     }
 
