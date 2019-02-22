@@ -5,4 +5,5 @@ public class Constants {
     public static final String ACTION_TYPE = "ACTION_TYPE";
     public static final String COLLECTIONS = "Collections";
     public static final String PHOTOS = "Photos";
+    public static final String EXTRA_PHOTO = "EXTRA_PHOTO";
 }
