@@ -12,7 +12,7 @@ public class ItemCollectionsViewModel extends BaseObservable {
     private OnItemRecyclerViewClick<Collection> mClickListener;
     private ObservableField<Collection> mCollectionObservableField;
 
-    ItemCollectionsViewModel(OnItemRecyclerViewClick<Collection> itemClickListener) {
+    public ItemCollectionsViewModel(OnItemRecyclerViewClick<Collection> itemClickListener) {
         mCollectionObservableField = new ObservableField<>();
         mClickListener = itemClickListener;
     }

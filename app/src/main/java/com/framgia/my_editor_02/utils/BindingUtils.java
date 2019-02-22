@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 public class BindingUtils {
     private static final float THUMBNAIL_SIZE_MULTIPLIER = 0.1f;
@@ -32,5 +33,13 @@ public class BindingUtils {
                 .load(url)
                 .thumbnail(THUMBNAIL_SIZE_MULTIPLIER)
                 .into(imageView);
+    }
+
+    @BindingAdapter("circleImage")
+    public static void setCircleImage(ImageView circleImage, String url) {
+        Glide.with(circleImage.getContext())
+                .load(url)
+                .apply(new RequestOptions().circleCrop())
+                .into(circleImage);
     }
 }

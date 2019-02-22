@@ -54,7 +54,7 @@ public class ImageRepository {
         return mLocalDataSource.removeSearchQuery(position);
     }
 
-    public Single<List<Collection>> getListCollectionsDetail(String id, int page){
+    public Single<List<Photo>> getListCollectionsDetail(String id, int page){
         return mRemoteDataSource.getListCollectionsDetail(id, page);
     }
 

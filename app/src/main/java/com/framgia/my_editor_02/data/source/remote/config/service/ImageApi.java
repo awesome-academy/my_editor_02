@@ -26,8 +26,8 @@ public interface ImageApi {
             @Query("page") int page);
 
     @GET("collections/{id}/photos/?client_id=" + BuildConfig.API_KEY)
-    Single<List<Collection>> getListCollectionsDetail(@Path("id") String id,
-            @Query("page") int page);
+    Single<List<Photo>> getListCollectionsDetail(@Path("id") String id, @Query("page") int page);
+
 
     @GET("photos/{id}?client_id=" + BuildConfig.API_KEY)
     Single<Photo> getPhotos(@Path("id") String id, @Query("page") int page);
