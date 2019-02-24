@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.framgia.my_editor_02.R;
 import com.framgia.my_editor_02.data.model.Photo;
 import com.framgia.my_editor_02.databinding.FragmentEditPhotoBinding;
+import com.framgia.my_editor_02.screen.crop.CropPhotoFragment;
 import com.framgia.my_editor_02.screen.draw.DrawFragment;
 import com.framgia.my_editor_02.screen.filter.FilterFragment;
 import com.framgia.my_editor_02.screen.photoDetail.PhotoDetailFragment;
@@ -46,6 +47,7 @@ public class EditPhotoFragment extends Fragment implements View.OnClickListener 
         new HandleZoomEvent(mBinding.imageViewPhoto);
         mBinding.textViewDraw.setOnClickListener(this);
         mBinding.imageViewBack.setOnClickListener(this);
+        mBinding.textViewCrop.setOnClickListener(this);
         mBinding.textViewFilter.setOnClickListener(this);
         return mBinding.getRoot();
     }
@@ -78,6 +80,11 @@ public class EditPhotoFragment extends Fragment implements View.OnClickListener 
                 break;
             case R.id.imageViewBack:
                 mNavigator.removeFragment(getFragmentManager(), PhotoDetailFragment.TAG);
+                break;
+            case R.id.textViewCrop:
+                mNavigator.goNextChildFragment(getFragmentManager(), R.id.layoutContainer,
+                        CropPhotoFragment.newInstance(((BitmapDrawable) drawable).getBitmap()),
+                        true, EditPhotoFragment.TAG);
                 break;
         }
     }
