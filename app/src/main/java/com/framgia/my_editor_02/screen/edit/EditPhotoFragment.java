@@ -13,6 +13,7 @@ import com.framgia.my_editor_02.R;
 import com.framgia.my_editor_02.data.model.Photo;
 import com.framgia.my_editor_02.databinding.FragmentEditPhotoBinding;
 import com.framgia.my_editor_02.screen.crop.CropPhotoFragment;
+import com.framgia.my_editor_02.screen.brightness.BrightnessFragment;
 import com.framgia.my_editor_02.screen.draw.DrawFragment;
 import com.framgia.my_editor_02.screen.filter.FilterFragment;
 import com.framgia.my_editor_02.screen.photoDetail.PhotoDetailFragment;
@@ -49,6 +50,7 @@ public class EditPhotoFragment extends Fragment implements View.OnClickListener 
         mBinding.imageViewBack.setOnClickListener(this);
         mBinding.textViewCrop.setOnClickListener(this);
         mBinding.textViewFilter.setOnClickListener(this);
+        mBinding.textViewBrightness.setOnClickListener(this);
         return mBinding.getRoot();
     }
 
@@ -77,6 +79,11 @@ public class EditPhotoFragment extends Fragment implements View.OnClickListener 
                             FilterFragment.newInstance(((BitmapDrawable) drawable).getBitmap()),
                             true, TAG);
                 }
+                break;
+            case R.id.textViewBrightness:
+                mNavigator.goNextChildFragment(getFragmentManager(), R.id.layoutContainer,
+                        BrightnessFragment.newInstance(((BitmapDrawable) drawable).getBitmap()),
+                        true, TAG);
                 break;
             case R.id.imageViewBack:
                 mNavigator.removeFragment(getFragmentManager(), PhotoDetailFragment.TAG);
