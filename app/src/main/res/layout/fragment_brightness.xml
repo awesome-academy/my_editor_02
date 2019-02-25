@@ -1,0 +1,133 @@
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.framgia.my_editor_02.screen.brightness.BrightnessViewModel"
+            />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black"
+        android:clickable="true"
+        android:focusable="true"
+        >
+
+        <ImageView
+            android:id="@+id/imageViewPoster"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_16"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/image_description"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@+id/cardView"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            bind:bitMapUrl="@{viewModel.bitmapObservableField}"
+            />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            >
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+                <ImageView
+                    android:id="@+id/imageViewCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/image_description"
+                    android:padding="@dimen/dp_8"
+                    android:src="@drawable/ic_remove"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+
+                <ImageView
+                    android:id="@+id/imageViewTick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/image_description"
+                    android:padding="@dimen/dp_8"
+                    android:src="@drawable/ic_tick"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewCancel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/imageViewCancel"
+                    />
+
+                <TextView
+                    android:id="@+id/textViewContrast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dp_10"
+                    android:text="@string/contrast"
+                    android:textColor="@color/color_black"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/imageViewCancel"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+
+                <SeekBar
+                    android:id="@+id/seekBarContrast"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_50"
+                    android:layout_marginStart="@dimen/dp_50"
+                    android:max="255"
+                    android:progress="125"
+                    app:layout_constraintBottom_toBottomOf="@id/textViewContrast"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/textViewContrast"
+                    app:layout_constraintTop_toTopOf="@id/textViewContrast"
+                    />
+
+                <TextView
+                    android:id="@+id/textViewBrightness"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dp_10"
+                    android:text="@string/brightness"
+                    android:textColor="@color/color_back"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/textViewContrast"
+                    app:layout_constraintEnd_toEndOf="@id/textViewContrast"
+                    app:layout_constraintStart_toStartOf="@id/textViewContrast"
+                    />
+
+                <SeekBar
+                    android:id="@+id/seekBarBrightness"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:max="255"
+                    android:progress="125"
+                    app:layout_constraintBottom_toBottomOf="@id/textViewBrightness"
+                    app:layout_constraintEnd_toEndOf="@id/seekBarContrast"
+                    app:layout_constraintStart_toStartOf="@id/seekBarContrast"
+                    app:layout_constraintTop_toTopOf="@id/textViewBrightness"
+                    />
+
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
+    </android.support.constraint.ConstraintLayout>
+</layout>

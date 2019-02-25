@@ -51,4 +51,8 @@ public class BindingUtils {
                 .apply(new RequestOptions().circleCrop())
                 .into(circleImage);
     }
+    @BindingAdapter("bitMapUrl")
+    public static void setBitMapUrl(ImageView view, Bitmap bitmap){
+        view.setImageBitmap(bitmap);
+    }
 }

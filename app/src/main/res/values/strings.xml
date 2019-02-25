@@ -19,4 +19,6 @@
     <string name="filter">Filter</string>
     <string name="down_load">DownLoading</string>
     <string name="link_error">Link Error</string>
+    <string name="contrast">CONTRAST</string>
+    <string name="brightness">BRIGHTNESS</string>
 </resources>

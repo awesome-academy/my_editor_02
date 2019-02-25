@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import com.framgia.my_editor_02.R;
 import com.framgia.my_editor_02.databinding.ActivityMainBinding;
+import com.framgia.my_editor_02.screen.brightness.BrightnessFragment;
 import com.framgia.my_editor_02.screen.draw.DrawFragment;
 import com.framgia.my_editor_02.screen.edit.EditPhotoFragment;
 import com.framgia.my_editor_02.screen.filter.FilterFragment;
@@ -56,6 +57,10 @@ public class MainActivity extends AppCompatActivity implements OnAttachEditFeatu
         } else if (fragment instanceof FilterFragment) {
             FilterFragment filterFragment = (FilterFragment) fragment;
             filterFragment.setOnAttachFilterFragment(this);
+        }
+        else if (fragment instanceof BrightnessFragment){
+            BrightnessFragment brightnessFragment = (BrightnessFragment) fragment;
+            brightnessFragment.setOnAttachBrightnessListener(this);
         }
     }
 
