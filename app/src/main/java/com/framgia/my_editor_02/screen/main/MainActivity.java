@@ -2,8 +2,10 @@ package com.framgia.my_editor_02.screen.main;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -11,10 +13,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import com.framgia.my_editor_02.R;
 import com.framgia.my_editor_02.databinding.ActivityMainBinding;
+import com.framgia.my_editor_02.screen.draw.DrawFragment;
+import com.framgia.my_editor_02.screen.edit.EditPhotoFragment;
 import com.framgia.my_editor_02.screen.home.HomeFragment;
 import com.framgia.my_editor_02.utils.Navigator;
+import com.framgia.my_editor_02.utils.OnAttachEditFeatureListener;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnAttachEditFeatureListener {
 
     private static final int FLAGS = 0;
     private MainViewModel mMainViewModel;
@@ -43,6 +48,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onAttachFragment(Fragment fragment) {
+        if (fragment instanceof DrawFragment) {
+            DrawFragment drawFragment = (DrawFragment) fragment;
+            drawFragment.setOnAttachDrawFragmentListener(this);
+        }
+    }
+
+    @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             View view = getCurrentFocus();
@@ -58,5 +71,15 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return super.dispatchTouchEvent(event);
+    }
+
+    @Override
+    public void saveEditResult(Bitmap bitmap) {
+        EditPhotoFragment editPhotoFragment =
+                (EditPhotoFragment) getSupportFragmentManager().findFragmentByTag(
+                        EditPhotoFragment.TAG);
+        if (editPhotoFragment != null) {
+            editPhotoFragment.saveBitmap(bitmap);
+        }
     }
 }
