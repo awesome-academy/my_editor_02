@@ -13,4 +13,9 @@
     <color name="colorGrey50">#fafafa</color>
     <color name="color_black_64">#A3070606</color>
     <color name="color_back">#000</color>
+    <color name="colorRedRadioButton">#F44336</color>
+    <color name="colorRadioButtonBorder">#B93F9ED1</color>
+    <color name="colorYellowRadioButton">#FFC107</color>
+    <color name="colorBlueRadioButton">#3F5EB5</color>
+    <color name="colorGreenRadioButton">#4CAF50</color>
 </resources>

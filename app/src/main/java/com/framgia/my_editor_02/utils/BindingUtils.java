@@ -1,6 +1,7 @@
 package com.framgia.my_editor_02.utils;
 
 import android.databinding.BindingAdapter;
+import android.graphics.Bitmap;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -31,6 +32,14 @@ public class BindingUtils {
     public static void setImageUrl(ImageView imageView, String url) {
         Glide.with(imageView.getContext())
                 .load(url)
+                .thumbnail(THUMBNAIL_SIZE_MULTIPLIER)
+                .into(imageView);
+    }
+
+    @BindingAdapter("imgUrl")
+    public static void setImageUrl(ImageView imageView, Bitmap bitmap) {
+        Glide.with(imageView.getContext())
+                .load(bitmap)
                 .thumbnail(THUMBNAIL_SIZE_MULTIPLIER)
                 .into(imageView);
     }
