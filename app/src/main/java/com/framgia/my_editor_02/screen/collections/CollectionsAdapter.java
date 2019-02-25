@@ -58,6 +58,14 @@ public class CollectionsAdapter
         return position;
     }
 
+    void resetData() {
+        if (mCollections != null) {
+            int size = mCollections.size();
+            mCollections.clear();
+            notifyItemRangeRemoved(mCollections.size(), size);
+        }
+    }
+
     public static class CollectionsViewHolder extends RecyclerView.ViewHolder {
         private ItemCollectionsBinding mItemCollectionsBinding;
         private ItemCollectionsViewModel mViewModel;
@@ -71,6 +79,7 @@ public class CollectionsAdapter
         }
 
         public void bindData(Collection collection) {
+            mItemCollectionsBinding.invalidateAll();
             mViewModel.setCollection(collection);
             mItemCollectionsBinding.executePendingBindings();
         }

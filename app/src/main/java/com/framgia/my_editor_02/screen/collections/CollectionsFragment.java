@@ -17,6 +17,7 @@ import com.framgia.my_editor_02.data.source.Local.config.SharedPrefsApi;
 import com.framgia.my_editor_02.data.source.remote.ImageRemoteDataSource;
 import com.framgia.my_editor_02.databinding.FragmentCollectionsBinding;
 import com.framgia.my_editor_02.screen.collectionsDetail.CollectionsDetailFragment;
+import com.framgia.my_editor_02.utils.ActionType;
 import com.framgia.my_editor_02.utils.Constants;
 import com.framgia.my_editor_02.utils.EndlessScrollListener;
 import com.framgia.my_editor_02.utils.Navigator;
@@ -30,10 +31,14 @@ public class CollectionsFragment extends Fragment implements OnItemRecyclerViewC
     public static final String TAG = CollectionsDetailFragment.class.getSimpleName();
     private CollectionsViewModel mCollectionsViewModel;
     private Navigator mNavigator;
+    private int mActionType;
+    private String mSearchQuery;
+    private boolean mIsResetState;
 
-    public static CollectionsFragment newInstance() {
+    public static CollectionsFragment newInstance(int action) {
         CollectionsFragment collectionsFragment = new CollectionsFragment();
         Bundle args = new Bundle();
+        args.putInt(Constants.ACTION_TYPE, action);
         collectionsFragment.setArguments(args);
         return collectionsFragment;
     }
@@ -61,7 +66,12 @@ public class CollectionsFragment extends Fragment implements OnItemRecyclerViewC
                                 Objects.requireNonNull(getActivity()).getApplicationContext())));
         mNavigator = new Navigator(this);
         mCollectionsViewModel = new CollectionsViewModel(repository, this);
-        mCollectionsViewModel.getCollections(Constants.DEFAULT_PAGE);
+        if (getArguments() != null) {
+            mActionType = getArguments().getInt(Constants.ACTION_TYPE, ActionType.ACTION_GET_LIST);
+        }
+        if (mActionType == ActionType.ACTION_GET_LIST) {
+            mCollectionsViewModel.getCollections(Constants.DEFAULT_PAGE);
+        }
         binding.setViewModel(mCollectionsViewModel);
         setLoadMore(binding);
         return binding.getRoot();
@@ -73,11 +83,20 @@ public class CollectionsFragment extends Fragment implements OnItemRecyclerViewC
                         binding.RecyclerViewCollections.getLayoutManager())) {
             @Override
             public boolean setResetState() {
+                if (mIsResetState) {
+                    mIsResetState = false;
+                    return true;
+                }
                 return false;
             }
 
             @Override
             public void onLoadMore(int page, RecyclerView view) {
+                if (mActionType == ActionType.ACTION_GET_LIST) {
+                    mCollectionsViewModel.getCollections(page);
+                } else if (mActionType == ActionType.ACTION_SEARCH) {
+                    mCollectionsViewModel.searchCollections(mSearchQuery, page);
+                }
                 mCollectionsViewModel.getCollections(page);
             }
         });
@@ -85,7 +104,15 @@ public class CollectionsFragment extends Fragment implements OnItemRecyclerViewC
 
     @Override
     public void onItemClick(Collection item) {
-        mNavigator.goNextChildFragment(getFragmentManager(), R.id.layoutContainer,
-                CollectionsDetailFragment.newInstance(item), true, TAG);
+        mNavigator.goNextChildFragment(
+                Objects.requireNonNull(getActivity()).getSupportFragmentManager(),
+                R.id.layoutContainer, CollectionsDetailFragment.newInstance(item), true, TAG);
+    }
+
+    public void searchCollections(String searchQuery) {
+        mSearchQuery = searchQuery;
+        mIsResetState = true;
+        mCollectionsViewModel.resetRecyclerViewData();
+        mCollectionsViewModel.searchCollections(searchQuery, Constants.DEFAULT_PAGE);
     }
 }

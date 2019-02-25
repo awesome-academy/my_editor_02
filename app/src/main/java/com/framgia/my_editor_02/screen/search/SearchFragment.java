@@ -43,6 +43,7 @@ public class SearchFragment extends Fragment
     private SearchViewModel mSearchViewModel;
     private Navigator mNavigator;
     private PhotosFragment mPhotosFragment;
+    private CollectionsFragment mCollectionsFragment;
 
     public static SearchFragment newInstance() {
         SearchFragment searchFragment = new SearchFragment();
@@ -119,8 +120,9 @@ public class SearchFragment extends Fragment
                                 Objects.requireNonNull(getActivity()).getApplicationContext())));
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         mPhotosFragment = PhotosFragment.newInstance(ActionType.ACTION_SEARCH);
+        mCollectionsFragment = CollectionsFragment.newInstance(ActionType.ACTION_SEARCH);
         adapter.addFragment(mPhotosFragment, Constants.PHOTOS);
-        adapter.addFragment(CollectionsFragment.newInstance(), Constants.COLLECTIONS);
+        adapter.addFragment(mCollectionsFragment, Constants.COLLECTIONS);
         mSearchViewModel = new SearchViewModel(repository, adapter, this);
         mSearchViewModel.getSearchHistory();
     }
@@ -164,5 +166,6 @@ public class SearchFragment extends Fragment
         mBinding.groupSearchHistory.setVisibility(View.GONE);
         mBinding.viewPager.setVisibility(View.VISIBLE);
         mPhotosFragment.searchPhotos(query);
+        mCollectionsFragment.searchCollections(query);
     }
 }

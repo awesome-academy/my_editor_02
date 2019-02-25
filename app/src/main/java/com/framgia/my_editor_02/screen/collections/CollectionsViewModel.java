@@ -50,6 +50,27 @@ public class CollectionsViewModel extends BaseViewModel {
         mCompositeDisposable.add(disposable);
     }
 
+    public void searchCollections(String query, int page) {
+        mCompositeDisposable.add(mImageRepository.searchCollections(query, page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<Collection>>() {
+                    @Override
+                    public void accept(List<Collection> collections) throws Exception {
+                        mCollectionsAdapter.updateData(collections);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        throwable.printStackTrace();
+                    }
+                }));
+    }
+
+    void resetRecyclerViewData() {
+        mCollectionsAdapter.resetData();
+    }
+
     public CollectionsAdapter getCollectionsAdapter() {
         return mCollectionsAdapter;
     }
