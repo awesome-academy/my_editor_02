@@ -78,9 +78,6 @@ public class PhotosFragment extends Fragment implements OnItemRecyclerViewClick<
                         ImageLocalDataSource.getInstance(new SharedPrefsApi(Objects.requireNonNull(
                                 Objects.requireNonNull(getActivity()).getApplicationContext()))));
         mPhotosViewModel = new PhotosViewModel(repository, this);
-        if (mActionType == ActionType.ACTION_GET_LIST) {
-            mPhotosViewModel.getListPhotos(Constants.DEFAULT_PAGE);
-        }
         mPhotosViewModel.getListPhotos(Constants.DEFAULT_PAGE);
         mBinding.recyclerViewListPhoto.addOnScrollListener(new EndlessScrollListener(
                 (GridLayoutManager) Objects.requireNonNull(

@@ -1,14 +1,10 @@
 package com.framgia.my_editor_02.screen.search;
 
-import com.framgia.my_editor_02.data.model.Collection;
 import com.framgia.my_editor_02.data.repository.ImageRepository;
 import com.framgia.my_editor_02.screen.BaseViewModel;
 import com.framgia.my_editor_02.screen.home.ViewPagerAdapter;
 import com.framgia.my_editor_02.utils.OnItemRecyclerViewClick;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 import java.util.List;
 
 public class SearchViewModel extends BaseViewModel {
@@ -34,22 +30,6 @@ public class SearchViewModel extends BaseViewModel {
         mCompositeDisposable.clear();
     }
 
-    public void searchCollections(String query, int page) {
-        mCompositeDisposable.add(mImageRepository.searchCollections(query, page)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<Collection>>() {
-                    @Override
-                    public void accept(List<Collection> collections) throws Exception {
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        throwable.printStackTrace();
-                    }
-                }));
-    }
-
     public void getSearchHistory() {
         if (mImageRepository.getSearchHistory() != null) {
             mHistoryAdapter.setData(mImageRepository.getSearchHistory());
@@ -57,9 +37,7 @@ public class SearchViewModel extends BaseViewModel {
     }
 
     public void saveSearchQuery(String searchQuery) {
-        if (mImageRepository.getSearchHistory() != null) {
-            mHistoryAdapter.setData(mImageRepository.saveSearchQuery(searchQuery));
-        }
+        mHistoryAdapter.setData(mImageRepository.saveSearchQuery(searchQuery));
     }
 
     public void removeSearchQuery(int position) {

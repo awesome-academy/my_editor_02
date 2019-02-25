@@ -61,7 +61,7 @@ public class HomeFragment extends Fragment implements TabLayout.OnTabSelectedLis
         ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
         adapter.addFragment(PhotosFragment.newInstance(ActionType.ACTION_GET_LIST),
                 Constants.PHOTOS);
-        adapter.addFragment(CollectionsFragment.newInstance(), Constants.COLLECTIONS);
+        adapter.addFragment(CollectionsFragment.newInstance(ActionType.ACTION_GET_LIST), Constants.COLLECTIONS);
         mHomeViewModel = new HomeViewModel(adapter);
     }
 
