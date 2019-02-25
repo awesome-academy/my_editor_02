@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <data>
+        <variable
+            name="viewModel"
+            type="com.framgia.my_editor_02.screen.filter.ItemFilterViewModel"
+            />
+    </data>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{viewModel::onItemClicked}"
+        >
+
+        <ImageView
+            android:id="@+id/imageViewFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_16"
+            android:layout_marginStart="@dimen/dp_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_background"
+            />
+        <TextView
+            android:id="@+id/textViewFilterName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.mFilterObservableField.name()}"
+            android:textColor="@color/colorBlueGrey700"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewFilter"
+            app:layout_constraintStart_toStartOf="@+id/imageViewFilter"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewFilter"
+            />
+    </android.support.constraint.ConstraintLayout>
+</layout>

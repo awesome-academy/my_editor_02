@@ -15,6 +15,7 @@ import com.framgia.my_editor_02.R;
 import com.framgia.my_editor_02.databinding.ActivityMainBinding;
 import com.framgia.my_editor_02.screen.draw.DrawFragment;
 import com.framgia.my_editor_02.screen.edit.EditPhotoFragment;
+import com.framgia.my_editor_02.screen.filter.FilterFragment;
 import com.framgia.my_editor_02.screen.home.HomeFragment;
 import com.framgia.my_editor_02.utils.Navigator;
 import com.framgia.my_editor_02.utils.OnAttachEditFeatureListener;
@@ -52,6 +53,9 @@ public class MainActivity extends AppCompatActivity implements OnAttachEditFeatu
         if (fragment instanceof DrawFragment) {
             DrawFragment drawFragment = (DrawFragment) fragment;
             drawFragment.setOnAttachDrawFragmentListener(this);
+        } else if (fragment instanceof FilterFragment) {
+            FilterFragment filterFragment = (FilterFragment) fragment;
+            filterFragment.setOnAttachFilterFragment(this);
         }
     }
 

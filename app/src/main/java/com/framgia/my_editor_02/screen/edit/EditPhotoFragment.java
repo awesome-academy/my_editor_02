@@ -13,6 +13,7 @@ import com.framgia.my_editor_02.R;
 import com.framgia.my_editor_02.data.model.Photo;
 import com.framgia.my_editor_02.databinding.FragmentEditPhotoBinding;
 import com.framgia.my_editor_02.screen.draw.DrawFragment;
+import com.framgia.my_editor_02.screen.filter.FilterFragment;
 import com.framgia.my_editor_02.screen.photoDetail.PhotoDetailFragment;
 import com.framgia.my_editor_02.utils.Constants;
 import com.framgia.my_editor_02.utils.Navigator;
@@ -45,6 +46,7 @@ public class EditPhotoFragment extends Fragment implements View.OnClickListener 
         new HandleZoomEvent(mBinding.imageViewPhoto);
         mBinding.textViewDraw.setOnClickListener(this);
         mBinding.imageViewBack.setOnClickListener(this);
+        mBinding.textViewFilter.setOnClickListener(this);
         return mBinding.getRoot();
     }
 
@@ -65,6 +67,13 @@ public class EditPhotoFragment extends Fragment implements View.OnClickListener 
                     mNavigator.goNextChildFragment(getFragmentManager(), R.id.layoutContainer,
                             DrawFragment.newInstance(((BitmapDrawable) drawable).getBitmap()), true,
                             TAG);
+                }
+                break;
+            case R.id.textViewFilter:
+                if (drawable != null) {
+                    mNavigator.goNextChildFragment(getFragmentManager(), R.id.layoutContainer,
+                            FilterFragment.newInstance(((BitmapDrawable) drawable).getBitmap()),
+                            true, TAG);
                 }
                 break;
             case R.id.imageViewBack:
